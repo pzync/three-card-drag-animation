@@ -1,24 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import { motion } from "framer-motion";
 
 function App() {
+  const [value, setValue] = useState(0);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <motion.div
+        className="Box"
+        whileTap={{ scale: 0.85, borderRadius: `50%` }}
+        drag
+        dragElastic={1}
+        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+        onDragStart={() => setValue(20)}
+        onDragEnd={() => setValue(0)}
+        animate={{
+          scale: [1, 0.6, 1.2, 1],
+          borderRadius: [`15%`, `50%`, `50%`, `15%`],
+          rotate: [0, 180, -180, 0]
+        }}
+      />
+      <div className="App-bg" style={{ filter: `blur(${value}px)` }} />
     </div>
   );
 }
